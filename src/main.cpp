@@ -21,7 +21,11 @@
 #define LED5 5
 #define LED23 23
 
-
+// Buttons
+#define BUTT1 25
+#define BUTT2 26
+#define BUTT3 27
+#define BUTT4 14
 
 //--------------------------------------------------------------
 // Leds
