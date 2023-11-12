@@ -5,7 +5,22 @@ $ git tag --list -n1
 v0.1    Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
 v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
+v0.4    Přidán I2C OLED displej 128x64 pro výpis informací
+
 ```
+## v0.4 - Přidán I2C OLED displej 128x64 pro výpis informací
+**Wiring v0.4**
+![Wiring v0.2](img/Wiring_v0.4.jpg?raw=true)
+
+**Funkcionalita:**
+* Každé stisknut tlačítka je vypsáno na OLED displeji
+* Modré LEDky blikají v určitých intervalech nezávisle na další aktivitě
+* Po stisknutí konkrétního tlačítka se změní stav konkrétní LED na NeoPixel pásce WS2812B
+
+Použité knihovny pro I2C OLED:
+* **Adafruit_SSD1306**: https://github.com/adafruit/Adafruit_SSD1306.git
+* **Adafruit-GFX-Library**: https://github.com/adafruit/Adafruit-GFX-Library
+
 ## v0.3 - Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 **Wiring v0.3**
 ![Wiring v0.2](img/Wiring_v0.3.jpg?raw=true)
@@ -14,8 +29,8 @@ v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 * Modré LEDky blikají v určitých intervalech nezávisle na další aktivitě
 * Po stisknutí konkrétního tlačítka se změní stav konkrétní LED na NeoPixel pásce WS2812B
 
-Použita knihovna **Adafruit_NeoPixel**:
-https://github.com/adafruit/Adafruit_NeoPixel
+Použitá knihovna pro NeoPixel:
+* **Adafruit_NeoPixel**: https://github.com/adafruit/Adafruit_NeoPixel
 
 ## v0.2 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 **Wiring v0.2**

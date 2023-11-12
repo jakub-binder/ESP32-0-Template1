@@ -11,13 +11,17 @@
 // ----------------------------------------------------------------
 // Librares
 // ----------------------------------------------------------------
+// ---- Arduino core
 #include <Arduino.h>
-
+// ---- NeoPixel
 #include <Adafruit_NeoPixel.h>
-
+// ---- LCD 1306
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
 //--------------------------------------------------------------
-// Pins
+// Definition
 //--------------------------------------------------------------
 #define LED5 5
 #define LED18 18
@@ -32,6 +36,8 @@
 
 // Neopixel
 #define PIN_NEOPIXEL 4
+
+
 
 //--------------------------------------------------------------
 // Leds
@@ -181,12 +187,80 @@ Button button2 = { BUTT2, HIGH, 0, 0 };
 Button button3 = { BUTT3, HIGH, 0, 0 };
 Button button4 = { BUTT4, HIGH, 0, 0 };
 
+
+//--------------------------------------------------------------
+// OLED Definition
+//--------------------------------------------------------------
+// https://github.com/adafruit/Adafruit_SSD1306.git
+// https://github.com/adafruit/Adafruit-GFX-Library
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+int tKelvin, tCelsius, tFahrenheit;
+char _buffer[8];
+
+void writeTemperature(float temperature) 
+{
+  //tCelsius = temperature * 10;
+  // print temperature in degree Celsius
+  //if (tCelsius >= 1000)    // if temperature >= 100.0 °C
+    sprintf(_buffer, " %.1f C", temperature);
+  //else
+    //sprintf(_buffer, " %02f.%1f C", tCelsius / 10, tCelsius % 10);
+
+  display.setTextSize(2);   // text size = 2
+
+  display.setCursor(23, 10);
+  display.print(_buffer);
+  // print degree symbols ( ° )
+  display.drawCircle(88, 12, 2, WHITE);
+  display.display();
+}
+
+void SetInfo(String mess)
+{
+  // prvni rada od spodu, velikost 10px
+  display.setTextSize(1);
+  display.setCursor(0,56);
+  display.print(mess);
+  display.display();
+  // druha rada od spodu velikost 10px
+  //display.setTextSize(1);
+  //display.setCursor(0,46);
+  //display.print("ygq3456789abcdefghijk");
+}
+
+
 //--------------------------------------------------------------
 // Setup
 //-------------------------------------------------------------- 
 void setup() 
 {
   Serial.begin(115200);
+
+  // ========================== OLED ==============================
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) 
+  { 
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+  display.clearDisplay();
+
+  // ------ Set Temperature
+  display.setTextSize(1);      // Normal 1:1 pixel scale
+  display.setTextColor(WHITE, BLACK); // Draw white text
+  display.setCursor(15, 0);     // Start at top-left corner
+  display.print("TEMPERATURE:");
+  display.display();        // update the display
+
+  // ------- Set Info text
+  SetInfo("Info:");
 
   // ========================== Buttons and Leds ====================
   pinMode(led_pin5.pin, OUTPUT);
@@ -212,7 +286,7 @@ void loop()
 
   // Blikáni ledek
   CheckLedBliking(led_pin5.pin, led_pin5.interval, led_pin5.previousMillis);
-  CheckLedBliking(led_pin23.pin, led_pin23.interval, led_pin23.previousMillis);
+  //CheckLedBliking(led_pin23.pin, led_pin23.interval, led_pin23.previousMillis);
   
 
   button1.read();
@@ -226,6 +300,7 @@ void loop()
     //led_pin5.update();
     led_neopixel1.on = !led_neopixel1.on;
     led_neopixel1.update();
+    SetInfo("Zmena Led1");
   }
   if (button2.pressed())
   {
@@ -233,6 +308,7 @@ void loop()
     //led_pin18.update();
     led_neopixel2.on = !led_neopixel2.on;
     led_neopixel2.update();
+    SetInfo("Zmena Led2");
   }
   if (button3.pressed())
   {
@@ -240,6 +316,7 @@ void loop()
     //led_pin19.update();
     led_neopixel3.on = !led_neopixel3.on;
     led_neopixel3.update();
+    SetInfo("Zmena Led3");
   }
   if (button4.pressed())
   {
@@ -247,6 +324,7 @@ void loop()
     //led_pin23.update();
     led_neopixel4.on = !led_neopixel4.on;
     led_neopixel4.update();
+    SetInfo("Zmena Led4");
   }
 }
 
