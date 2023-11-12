@@ -4,11 +4,14 @@
 $ git tag --list -n1
 v0.1    Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
 v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
+v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 ```
+## v0.3 - Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
+**Wiring v0.3**
+![Wiring v0.2](img/Wiring_v0.3.jpg?raw=true)
 
 
-
-## v0.1 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
+## v0.2 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 **Wiring v0.2**
 ![Wiring v0.2](img/Wiring_v0.2.jpg?raw=true)
 
@@ -50,7 +53,7 @@ https://m1cr0lab-esp32.github.io/remote-control-with-websocket/button-setup/
   }
 ```
 
-## v0.0 - Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
+## v0.1 - Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
 **Wiring v0.1**
 
 ![Wiring v0.1](img/Wiring_v0.1.jpg?raw=true)
