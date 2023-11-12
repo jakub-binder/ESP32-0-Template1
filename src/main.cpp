@@ -92,7 +92,7 @@ struct Button
   bool released()               { return state == 0xffff; } // Uvolneno
   bool held(uint16_t count = 0) { return state > 1 + count && state < 0xffff; } // Drzeno
 
-  // metoda pro cteni fyzickeo stavu tlacitka
+  // Metoda pro cteni fyzickeo stavu tlacitka
   void read()
   {
     // přečte napětí na pinu připojeném k tlačítku
