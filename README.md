@@ -2,8 +2,8 @@
 **Startovací šablona pro projekty s deskou IoT ESP-WROOM-32**
 ```
 $ git tag --list -n1
-v0.0    Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
-v0.1    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
+v0.1    Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
+v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 ```
 
 
