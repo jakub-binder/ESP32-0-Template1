@@ -9,7 +9,8 @@ v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 
 
 ## v0.1 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
-**Wiring**
+**Wiring v0.2**
+![Wiring v0.2](img/Wiring_v0.2.jpg?raw=true)
 
 U konroly stavu tlačítek vycházím z jednoho z projektů **Steph's µLab**, kde jsou ošetřeny záchvěvy během sepnutí a rozepnutí tlačítka:
 https://m1cr0lab-esp32.github.io/remote-control-with-websocket/
@@ -50,7 +51,8 @@ https://m1cr0lab-esp32.github.io/remote-control-with-websocket/
 ```
 
 ## v0.0 - Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
-**Wiring**
+**Wiring v0.1**
+![Wiring v0.1](img/Wiring_v0.1.jpg?raw=true)
 
 Změna stavu LEDek je kontrolováno pomocí funkce millis(), aby bylo možné ve funkci loop() provádět i další operace.
 ```cpp
