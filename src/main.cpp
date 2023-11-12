@@ -13,6 +13,7 @@
 // ----------------------------------------------------------------
 #include <Arduino.h>
 
+#include <Adafruit_NeoPixel.h>
 
 
 //--------------------------------------------------------------
@@ -28,6 +29,9 @@
 #define BUTT2 26
 #define BUTT3 27
 #define BUTT4 14
+
+// Neopixel
+#define PIN_NEOPIXEL 4
 
 //--------------------------------------------------------------
 // Leds
@@ -53,7 +57,7 @@ struct Led
 Led led_pin5 = { LED5, 0, 1000, false };
 Led led_pin18 = { LED18, 0, 1000, false };
 Led led_pin19 = { LED19, 0, 1000, false };
-Led led_pin23 = { LED23, 0, 600, false };
+Led led_pin23 = { LED23, 0, 100, false };
 
 
 // Kontrola, zda nema dojit ke zmene stavu LEDky
@@ -72,6 +76,51 @@ void CheckLedBliking(int ledPin, long interval, unsigned long &previousMillis)
 }
 
 
+//--------------------------------------------------------------
+// Neopixel leds
+//--------------------------------------------------------------
+// https://github.com/adafruit/Adafruit_NeoPixel.git
+#define NUM_PIXELS 4
+Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
+
+// Colors
+uint32_t colors_black = pixels.Color(0,0,0);        // Black, #000000
+uint32_t colors_white = pixels.Color(255,255,255);  // White, #FFFFFF
+uint32_t colors_red = pixels.Color(255,0,0);        // Red, #FF0000
+uint32_t colors_lime = pixels.Color(0,255,0);       // Lime, #00FF00
+uint32_t colors_blue = pixels.Color(0,0,255);       // Blue, #0000FF
+uint32_t colors_yellow = pixels.Color(255,255,0);   // Yellow, #FFFF00
+uint32_t colors_aqua = pixels.Color(0,255,255);     // Aqua, #00FFFF
+uint32_t colors_pink = pixels.Color(255,0,255);     // Fuchsia(Pink), #FF00FF
+uint32_t colors_gray = pixels.Color(128,128,128);   // Gray, #808080
+uint32_t colors_green = pixels.Color(0,128,0);      // Green, #008000
+uint32_t colors_purple = pixels.Color(128,0,128);   // Purple, #800080
+
+struct Led_neopixel
+{
+  //
+  uint8_t led;    // Number of led
+  bool on;        // State of led
+  uint32_t color; // Color of Led
+  void update()
+  {
+    if(on)
+    {
+      pixels.setPixelColor(led, color);
+    }
+    else
+    {
+      pixels.setPixelColor(led, colors_black);
+    }
+    
+    pixels.show();
+  }
+};
+
+Led_neopixel led_neopixel1 = { 0, false, colors_yellow };
+Led_neopixel led_neopixel2 = { 1, false, colors_red };
+Led_neopixel led_neopixel3 = { 2, false, colors_blue };
+Led_neopixel led_neopixel4 = { 3, false, colors_green };
 
 //--------------------------------------------------------------
 // Buttons
@@ -149,6 +198,8 @@ void setup()
   pinMode(button2.pin, INPUT);
   pinMode(button3.pin, INPUT);
   pinMode(button4.pin, INPUT);
+
+  pixels.begin();
 }
 
 
@@ -158,9 +209,11 @@ void setup()
 //-------------------------------------------------------------- 
 void loop() 
 {
+
   // Blikáni ledek
-  //CheckLedBliking(led_pin5.pin, led_pin5.interval, led_pin5.previousMillis);
-  //CheckLedBliking(led_pin23.pin, led_pin23.interval, led_pin23.previousMillis);
+  CheckLedBliking(led_pin5.pin, led_pin5.interval, led_pin5.previousMillis);
+  CheckLedBliking(led_pin23.pin, led_pin23.interval, led_pin23.previousMillis);
+  
 
   button1.read();
   button2.read();
@@ -169,23 +222,31 @@ void loop()
 
   if (button1.pressed())
   {
-    led_pin5.on = !led_pin5.on;
-    led_pin5.update();
+    //led_pin5.on = !led_pin5.on;
+    //led_pin5.update();
+    led_neopixel1.on = !led_neopixel1.on;
+    led_neopixel1.update();
   }
   if (button2.pressed())
   {
-    led_pin18.on = !led_pin18.on;
-    led_pin18.update();
+    //led_pin18.on = !led_pin18.on;
+    //led_pin18.update();
+    led_neopixel2.on = !led_neopixel2.on;
+    led_neopixel2.update();
   }
   if (button3.pressed())
   {
-    led_pin19.on = !led_pin19.on;
-    led_pin19.update();
+    //led_pin19.on = !led_pin19.on;
+    //led_pin19.update();
+    led_neopixel3.on = !led_neopixel3.on;
+    led_neopixel3.update();
   }
   if (button4.pressed())
   {
-    led_pin23.on = !led_pin23.on;
-    led_pin23.update();
+    //led_pin23.on = !led_pin23.on;
+    //led_pin23.update();
+    led_neopixel4.on = !led_neopixel4.on;
+    led_neopixel4.update();
   }
 }
 
