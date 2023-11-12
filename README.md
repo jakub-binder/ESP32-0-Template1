@@ -13,7 +13,7 @@ v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 ![Wiring v0.2](img/Wiring_v0.2.jpg?raw=true)
 
 U konroly stavu tlačítek vycházím z jednoho z projektů **Steph's µLab**, kde jsou ošetřeny záchvěvy během sepnutí a rozepnutí tlačítka:
-https://m1cr0lab-esp32.github.io/remote-control-with-websocket/
+https://m1cr0lab-esp32.github.io/remote-control-with-websocket/button-setup/
 
 ```cpp
   void read()
@@ -52,6 +52,7 @@ https://m1cr0lab-esp32.github.io/remote-control-with-websocket/
 
 ## v0.0 - Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
 **Wiring v0.1**
+
 ![Wiring v0.1](img/Wiring_v0.1.jpg?raw=true)
 
 Změna stavu LEDek je kontrolováno pomocí funkce millis(), aby bylo možné ve funkci loop() provádět i další operace.
@@ -74,5 +75,3 @@ void CheckLedBliking(int ledPin, long interval, unsigned long &previousMillis)
 
 **Pinout desky IoT ESP-WROOM-32**
 ![ESP32 Pinout](img/ESP32_pinout.jpg?raw=true)
-
-https://github.com/Gbertaz/NonBlockingDallas.git
