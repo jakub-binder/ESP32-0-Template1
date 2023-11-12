@@ -12,7 +12,7 @@ v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 
 **Funkcionalita:**
 * Modré LEDky blikají v určitých intervalech nezávisle na další aktivitě
-* Po stisknutí konkrétního tlačítka se rozsvítí konkrétní LED na NeoPixel pásce WS2812B
+* Po stisknutí konkrétního tlačítka se změní stav konkrétní LED na NeoPixel pásce WS2812B
 
 
 
@@ -20,6 +20,9 @@ v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 ## v0.2 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 **Wiring v0.2**
 ![Wiring v0.2](img/Wiring_v0.2.jpg?raw=true)
+
+**Funkcionalita:**
+* Po stisknutí konkrétního tlačítka se změní stav modré LEDky
 
 U konroly stavu tlačítek vycházím z jednoho z projektů **Steph's µLab**, kde jsou ošetřeny záchvěvy během sepnutí a rozepnutí tlačítka:
 https://m1cr0lab-esp32.github.io/remote-control-with-websocket/button-setup/
@@ -63,6 +66,9 @@ https://m1cr0lab-esp32.github.io/remote-control-with-websocket/button-setup/
 **Wiring v0.1**
 
 ![Wiring v0.1](img/Wiring_v0.1.jpg?raw=true)
+
+**Funkcionalita:**
+* Dve modré LEDky mění svůj stav (off/on) v určitých intervalech
 
 Změna stavu LEDek je kontrolováno pomocí funkce millis(), aby bylo možné ve funkci loop() provádět i další operace.
 ```cpp
