@@ -16,6 +16,8 @@ v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 
 Přidán alšínějaký popisek
 Přdán další popisek
+Přidán další řádek
+Přidán další řádke
 
 ## v0.2 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 **Wiring v0.2**
