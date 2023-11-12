@@ -6,8 +6,27 @@ v0.1    Vychozí šablona s dvěma blikajícími LED pomocí funce mills()
 v0.2    Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 v0.4    Přidán I2C OLED displej 128x64 pro výpis informací
+v0.5    Přidáno teplotní čidlo Dallas Temperature DS18B20
 
 ```
+## v0.5 - Přidáno teplotní čidlo Dallas Temperature DS18B20
+**Wiring v0.5**
+![Wiring v0.2](img/Wiring_v0.5.jpg?raw=true)
+
+**Funkcionalita:**
+* Na displeji se po určitém intervalu aktualizuje hodnota teploty vyčtená z čidla
+* Každé stisknutí tlačítka je vypsáno na OLED displeji
+* Modré LEDky blikají v určitých intervalech nezávisle na další aktivitě
+* Po stisknutí konkrétního tlačítka se změní stav konkrétní LED na NeoPixel pásce WS2812B
+
+Aby čtení teploty neblokovalo hlavní smyčku **loop()**, je zde použita knihovna **NonBlockingDallas**,
+která tuto problematiku řeší.
+
+Použité knihovny pro teplotní čidlo Dallas Temperature DS18B20:
+* **OneWire**: https://github.com/PaulStoffregen/OneWire.git
+* **NonBlockingDallas**: https://github.com/Gbertaz/NonBlockingDallas.git
+
+
 ## v0.4 - Přidán I2C OLED displej 128x64 pro výpis informací
 **Wiring v0.4**
 ![Wiring v0.2](img/Wiring_v0.4.jpg?raw=true)

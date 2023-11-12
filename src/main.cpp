@@ -19,6 +19,11 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+// ---- Dallas Temperature DS18B20
+#include <Wire.h>
+#include <DallasTemperature.h>
+#include <NonBlockingDallas.h>
+
 
 //--------------------------------------------------------------
 // Definition
@@ -37,6 +42,8 @@
 // Neopixel
 #define PIN_NEOPIXEL 4
 
+// DS18B20 temperature sensor
+#define ONE_WIRE_BUS 15  
 
 
 //--------------------------------------------------------------
@@ -237,6 +244,57 @@ void SetInfo(String mess)
 
 
 //--------------------------------------------------------------
+// DS18B20 - Dallas Temp sensor Definition
+//--------------------------------------------------------------
+#define TIME_INTERVAL 1500                      //Time interval among sensor readings [milliseconds]
+int deviceCount = 0;
+float temp[6];
+char data[100];
+
+// vytvoření instance oneWireDS z knihovny OneWire
+OneWire oneWireDS(ONE_WIRE_BUS);
+// vytvoření instance senzoryDS z knihovny DallasTemperature
+DallasTemperature dallasTemp(&oneWireDS);
+NonBlockingDallas sensorDs18b20(&dallasTemp);    //Create a new instance of the NonBlockingDallas class
+
+//unsigned long previousMillisTemp1=0;
+//unsigned long previousMillisTemp2=1000;
+
+//int intervalTemp1 = 2000;
+//int intervalTemp2 = 2000;
+
+//Invoked at every sensor reading (TIME_INTERVAL milliseconds)
+void handleIntervalElapsed(float temperature, bool valid, int deviceIndex)
+{
+  //sprintf(data, "Temperature: %.3f °C", temperature);
+  //Serial.print(data);
+  writeTemperature(temperature);
+
+  //display.setCursor(15, 0);     // Start at top-left corner
+  //display.setCursor(15, 0);     // Start at top-left corner
+  //display.setTextSize(1);      // Normal 1:1 pixel scale
+  //display.setTextColor(WHITE, BLACK); // Draw white text
+  //display.setCursor(15, 0);     // Start at top-left corner
+  //display.print("PES:");
+
+  /*
+   *  DO SOME AMAZING STUFF WITH THE TEMPERATURE
+   */
+}
+
+//Invoked ONLY when the temperature changes between two sensor readings
+void handleTemperatureChange(float temperature, bool valid, int deviceIndex)
+{
+  //sprintf(data, "Temperature: %.3f °C", temperature);
+  //Serial.print(data);
+  writeTemperature(temperature);
+  /*
+   *  DO SOME AMAZING STUFF WITH THE TEMPERATURE
+   */
+}
+
+
+//--------------------------------------------------------------
 // Setup
 //-------------------------------------------------------------- 
 void setup() 
@@ -262,6 +320,20 @@ void setup()
   // ------- Set Info text
   SetInfo("Info:");
 
+
+  // ========================== DS18B20 =============================
+  //dallasTemp.begin();  // Otevření knihovny
+  //deviceCount = dallasTemp.getDeviceCount();
+
+  // Inicializace senzoru procházejícího rozlišením, měrnou jednotkou a intervalem čtení [milisekundy]
+  sensorDs18b20.begin(NonBlockingDallas::resolution_12, NonBlockingDallas::unit_C, TIME_INTERVAL);
+  //Callbacks
+  sensorDs18b20.onIntervalElapsed(handleIntervalElapsed);
+  sensorDs18b20.onTemperatureChange(handleTemperatureChange);
+
+  // Následující funkci zavolejte, kdykoli budete chtít požádat o nový údaj o teplotě, aniž byste čekali, než uplyne TIME_INTERVAL
+  sensorDs18b20.requestTemperature();
+
   // ========================== Buttons and Leds ====================
   pinMode(led_pin5.pin, OUTPUT);
   pinMode(led_pin18.pin, OUTPUT);
@@ -283,6 +355,9 @@ void setup()
 //-------------------------------------------------------------- 
 void loop() 
 {
+  //I KDYŽ KONVERZE SENZORU TRVÁ AŽ 750 ms, KNIHOVNA NonBlockingDallas ČEKÁ NA KONVERZI
+  //BEZ BLOKOVÁNÍ smyčky A VOLÁNÍ ZPĚTNÝCH VOLÁNÍ, KDYŽ JE HODNOTA TEPLOTY PŘIPRAVENA
+  sensorDs18b20.update();
 
   // Blikáni ledek
   CheckLedBliking(led_pin5.pin, led_pin5.interval, led_pin5.previousMillis);
