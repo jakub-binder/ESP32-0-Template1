@@ -14,8 +14,8 @@ v0.3    Přidán NeoPixel WS2812B, který reaguje na stisk tlačítek
 * Modré LEDky blikají v určitých intervalech nezávisle na další aktivitě
 * Po stisknutí konkrétního tlačítka se změní stav konkrétní LED na NeoPixel pásce WS2812B
 
-
-
+Přidán alšínějaký popisek
+Přdán další popisek
 
 ## v0.2 - Čtyři tlačítka, pomocí kterých lze měnit stav čtyř LEDek
 **Wiring v0.2**
